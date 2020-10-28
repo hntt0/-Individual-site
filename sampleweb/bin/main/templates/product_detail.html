@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+
+<link href="/css/reset.css" th:href="@{/css/reset.css}" rel="stylesheet" />
+<link href="/css/style.css" th:href="@{/css/style.css}" rel="stylesheet" />
+
+<title>Sample Web</title>
+</head>
+<body>
+
+<header th:insert="fragments/page_header::pageHeader"></header>
+
+<main>
+
+	<div class="container">
+		<table class="top">
+			<caption>バラ（ばら）</caption>
+			<tr>
+				<th>画像</th><th>価格</th><th>発売元</th><th>発売年月日</th>
+			</tr>
+			<tr>
+				<td class="imageDetail">
+					<img class="itemImageDetail" src="/img/may/rose.jpg" alt="" />
+				</td>
+				<td class="number" >1200円</td>
+				<td >城ノ越園芸</td>
+				<td>2019/12/10</td>
+			</tr>
+		</table>
+		<form action="">
+			<label id="description">商品説明</label>
+			<textarea cols="75" rows="5" readonly>あああああああああああああああああああああ。&#13;いいいいいいいいいいいいいい。&#13;ううううううううううううううううううううう。
+			</textarea>
+			
+			<hr />
+			
+			<div class="buttonArea">
+				<label>購入個数</label>
+				<input type="number" class="count number" value="0"/>
+				<button type="submit">カートに追加</button>
+			</div>
+		</form>
+	</div>
+
+</main>
+
+</body>
+</html>
