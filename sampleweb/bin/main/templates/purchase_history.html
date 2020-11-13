@@ -18,10 +18,10 @@
 		<div>
 			<h2>購入履歴</h2>
 		</div>
-		<div class="noData" th:id="${history == null && history.size() == 0}">
+		<div class="noData hidden">
 			<p class="info">購入履歴はありません。</p>
 		</div>
-		<table class="history" th:if="${history != null && history.size() > 0}">
+		<table class="history">
 			<tr>
 				<th>購入日時</th><th>商品名</th><th>価格(円)</th><th>個数</th><th>宛名</th><th>宛先住所</th>
 			</tr>
@@ -36,14 +36,53 @@
 				<td th:text="${history.address}"></td>
 			</tr>
 		</table>
-		<div class="buttonArea" th:if="${history != null && history.size() > 0}">
+		<div class="buttonArea">
 			<button id="deleteButton">削除</button>
 		</div>
 	</div>
 </main>
 
-<script>
+<script th:inline="javascript">
+/*<![CDATA[*/
 $(() => {
+	isExistsHistoryList(false);	// 引数(削除済)にfalseを指定
+	$('#deleteButton').on('click', () => {
+		deleteHistory();
+	});
+});
+
+function isExistsHistoryList(deleted) {
+	let histroryListSize = /*[[${history.size()}]]*/;
+	
+	//リストのサイズが0　もしくは　テーブルヘッダー以外の行がなければ
+	if (histroryListSize == 0 || deleted) {
+		// 情報なしメッセージを表示
+		$('.noData').removeClass('hidden');
+		
+		//テーブルのtrを非表示
+		$('.history tr').remove();
+		
+		// ボタンを非表示
+		$('.buttonArea').remove();
+	}
+}
+
+function deleteHistory() {
+	$.ajax({
+		type: 'POST',
+		url: '/sampleweb/history/delete'
+	})
+	.then((result) => {
+		isExistsHistoryList(true);	// 引数(削除済)にtrueを指定
+	}, () => {
+		alert('Error: ajax connection failed.');
+	});		
+}
+/*]]>*/
+ /*
+ 別の方法
+ */
+/* $(() => {
 	$('#deleteButton').on('click', () => {
 		deletehistory();
 	});
@@ -59,7 +98,7 @@ $(() => {
 		}, () => {
 			alert('Error: ajax connection failed.');
 		});
-	}
+	} */
 </script>
 
 

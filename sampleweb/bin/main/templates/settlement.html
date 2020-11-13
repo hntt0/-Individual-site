@@ -13,7 +13,6 @@
 <header th:insert="fragments/page_header::pageHeader"></header>
 
 <main>
-
 	<div class="container cart">
 		<div>
 			<h2 th:if="${destinations != null && destinations.size() > 0}">宛先を選択し、決済を完了します。</h2>
@@ -37,45 +36,47 @@
 		</table>
 		<div class="buttonArea">
 			<button th:if="${destinations != null && destinations.size() > 0}" id="deleteButton">削除</button>
-			<button id="register">新規宛先</button>
+			<form action="/sampleweb/destination/">
+				<button id="register">新規宛先</button>
+			</form>
 			<button th:if="${destinations != null && destinations.size() > 0}" id="settlementButton">決済</button>
 		</div>
 	</div>
 </main>
 <script>
-	$(() => {
-		$('#deleteButton').on('click', () => {
-			let checked = $('.radio:checked');
-			let destinationId = $(checked).val();
-			deleteDestination(destinationId, checked);
-		});
-		
-		$('#settlementButton').on('click', () => {
-			let checked = $('.radio:checked');
-			let destinationId = $(checked).val();
-			settlement(destinationId);
-		});
+$(() => {
+	$('#deleteButton').on('click', () => {
+		let checked = $('.radio:checked');
+		let destinationId = $(checked).val();
+		deleteDestination(destinationId, checked);
 	});
+	
+	$('#settlementButton').on('click', () => {
+		let checked = $('.radio:checked');
+		let destinationId = $(checked).val();
+		settlement(destinationId);
+	});
+});
 
-	function deleteDestination(destinationId, checked) {
-		$.ajax({
-			type: 'POST',
-			url: '/sampleweb/destination/delete',
-			data: JSON.stringify({'destinationId': destinationId}),
-			datatype: 'json',
-			contentType: 'application/json',
-		})
-		.then((result) => {
-			$(checked).parent().parent().remove();
-			let radioList = $('.radio');
-			if (radioList.length == 0) {
-				location.replace('/sampleweb/settlement/');
-			}
-			radioList[0].checked = true;
-		}, () => {
-			alert('Error: ajax connection failed.');
-		});
-	}
+function deleteDestination(destinationId, checked) {
+	$.ajax({
+		type: 'POST',
+		url: '/sampleweb/destination/delete',
+		data: JSON.stringify({'destinationId': destinationId}),
+		datatype: 'json',
+		contentType: 'application/json',
+	})
+	.then((result) => {
+		$(checked).parent().parent().remove();
+		let radioList = $('.radio');
+		if (radioList.length == 0) {
+			location.replace('/sampleweb/settlement/');
+		}
+		radioList[0].checked = true;
+	}, () => {
+		alert('Error: ajax connection failed.');
+	});
+}
 </script>
 </body>
 </html>

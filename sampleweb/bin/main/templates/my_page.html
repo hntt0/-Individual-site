@@ -21,27 +21,27 @@
 			<tr>
 				<th>氏名</th>
 				<td>
-					<span class="familyName">山田</span>
-					<span class="firstName">太郎</span>
+					<span class="familyName" th:text="${mstUser.familyName}"></span>
+					<span class="firstName" th:text="${mstUser.firstName}"></span>
 				</td>
 			</tr>
 			<tr>
 				<th>氏名ふりがな</th>
 				<td>
-					<span class="familyNameKana">やまだ</span>
-					<span class="firstNameKana">たろう</span>
+					<span class="familyNameKana" th:text="${mstUser.familyNameKana}"></span>
+					<span class="firstNameKana" th:text="${mstUser.firstNameKana}"></span>
 				</td>
 			</tr>
 			<tr>
 				<th>性別</th>
 				<td>
-					<span class="gender">男性</span>
+					<span class="gender" th:text="${mstUser.gender == 0? '男性' : '女性'}"></span>
 				</td>
 			</tr>
 			<tr>
-				<th>ユーザー名<br /><span class="note">（メールアドレス）</span></th>
+				<th>ユーザー名<br /><span class="note" >（メールアドレス）</span></th>
 				<td>
-					<span class="userName">taro@abc.com</span>
+					<span class="userName" th:text="${mstUser.UserName}"></span>
 				</td>
 			</tr>
 			<tr>
@@ -54,7 +54,7 @@
 				<th class="buttonArea">
 				</th>
 				<th class="buttonArea">
-					<form action="">
+					<form action="/sampleweb/history/">
 						<button id="historyButton">購入履歴</button>
 					</form>
 				</th>
@@ -72,8 +72,8 @@ $(() => {
 		$('#resetPassword').dialog(dialogConfig.resetPassword);
 	
 		$('a.resetPassword').on('click', (e) => {
-		$("#resetPassword").dialog("open");
-	});
+		$("#resetPassword").dialog("open");resetPassw;
+	})
 });
 </script>
 

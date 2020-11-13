@@ -109,8 +109,8 @@
 			<input type="password" name="password" />
 			<input type="hidden" id="hiddenUserName" value="" />
 			<button id="login" th:class="${loginSession == null || loginSession.getUserName() == null ? '' : 'hidden'}">ログイン</button>
-			<button id="logout" class="hidden">
-			<!-- th:class="${loginSession == null || loginSession.getUserName() == null ? 'hidden' : ''}"> -->
+			<button id="logout" class="hidden"
+			 th:class="${loginSession == null || loginSession.getUserName() == null ? 'hidden' : ''}">
 			ログアウト</button>
 		</div>
 		<ul class="menu">

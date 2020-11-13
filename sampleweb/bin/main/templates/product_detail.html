@@ -16,35 +16,42 @@
 
 	<div class="container">
 		<table class="top">
-			<caption>バラ（ばら）</caption>
+			<caption th:text="${product.productName}"></caption>
 			<tr>
 				<th>画像</th><th>価格</th><th>発売元</th><th>発売年月日</th>
 			</tr>
 			<tr>
 				<td class="imageDetail">
-					<img class="itemImageDetail" src="/img/may/rose.jpg" alt="" />
+					<img class="itemImageDetail" th:src="${product.imageFullPath}" alt="" />
 				</td>
-				<td class="number" >1200円</td>
-				<td >城ノ越園芸</td>
-				<td>2019/12/10</td>
+				<td class="number" th:text="${product.price} + '円'"></td>
+				<td th:text="${product.releaseCompany}">城ノ越園芸</td>
+				<td th:text="${product.releaseDate}">2019/12/10</td>
 			</tr>
 		</table>
-		<form action="">
+		<form action="/sampleweb/cart/add" onsubmit="return Countcheck();">
 			<label id="description">商品説明</label>
-			<textarea cols="75" rows="5" readonly>あああああああああああああああああああああ。&#13;いいいいいいいいいいいいいい。&#13;ううううううううううううううううううううう。
+			<textarea cols="75" rows="5" th:text="${product.productDescription}" readonly>
 			</textarea>
-			
 			<hr />
-			
 			<div class="buttonArea">
 				<label>購入個数</label>
-				<input type="number" class="count number" value="0"/>
-				<button type="submit">カートに追加</button>
+				<input type="number" name="productCount" class="count number" value="0"/>
+				<input type="hidden" name="productId" th:value="${product.id}"/>
+				<button type="submit" id="submit">カートに追加</button>
 			</div>
 		</form>
 	</div>
-
 </main>
+<script>
+function Countcheck() {
+	let Count = $('.count').val();
+	if(Count == 0) {
+		alert('個数が0です。');
+		return false;
+	}
+}
+</script>
 
 </body>
 </html>

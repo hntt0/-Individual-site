@@ -1,7 +1,6 @@
 package jp.co.internous.sampleweb.model.domain;
 
 import java.sql.Timestamp;
-import java.util.List;
 
 import jp.co.internous.sampleweb.model.form.CartForm;
 

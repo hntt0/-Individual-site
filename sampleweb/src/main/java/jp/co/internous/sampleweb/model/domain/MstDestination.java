@@ -2,6 +2,8 @@ package jp.co.internous.sampleweb.model.domain;
 
 import java.sql.Timestamp;
 
+import jp.co.internous.sampleweb.model.form.DestinationForm;
+
 public class MstDestination {
 	
 	private int id;
@@ -9,10 +11,20 @@ public class MstDestination {
 	private String familyName;
 	private String firstName;
 	private String address;
-	private int telNumber;
+	private String telNumber;
 	private int status;
 	private Timestamp createdAt;
 	private Timestamp updatedAt;
+	
+	public MstDestination() {}
+	
+	public MstDestination(DestinationForm f, int userId) {
+		this.userId = userId;
+		this.familyName = f.getFamilyName();
+		this.firstName = f.getFirstName();
+		this.address = f.getAddress();
+		this.telNumber = f.getTelNumber();
+	}
 	
 	public int getId() {
 		return id;
@@ -44,10 +56,10 @@ public class MstDestination {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	public int getTelNumber() {
+	public String getTelNumber() {
 		return telNumber;
 	}
-	public void setTelNumber(int telNumber) {
+	public void setTelNumber(String telNumber) {
 		this.telNumber = telNumber;
 	}
 	public int getStatus() {

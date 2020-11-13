@@ -2,9 +2,6 @@ package jp.co.internous.sampleweb.model.domain.dto;
 
 import java.sql.Timestamp;
 
-import jp.co.internous.sampleweb.model.domain.MstProduct;
-import jp.co.internous.sampleweb.model.domain.TblCart;
-
 public class CartDto {
 	
 	private int id;

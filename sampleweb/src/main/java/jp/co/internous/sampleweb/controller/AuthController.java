@@ -1,19 +1,14 @@
 package jp.co.internous.sampleweb.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
 
 import jp.co.internous.sampleweb.model.domain.MstUser;
-import jp.co.internous.sampleweb.model.form.InfoForm;
 import jp.co.internous.sampleweb.model.form.UserForm;
 import jp.co.internous.sampleweb.model.mapper.MstUserMapper;
 import jp.co.internous.sampleweb.model.mapper.TblCartMapper;
@@ -40,7 +35,7 @@ public class AuthController {
 		
 		int tmpUserId = loginSession.getTmpUserId();
 		// 仮IDでカート追加されていれば、本ユーザーIDに更新する。
-		if (user != null && tmpUserId != 0) {
+		if (user != null && tmpUserId == 0) {
 			int count = cartMapper.findCountByUserId(tmpUserId);
 			if (count > 0) {
 				cartMapper.updateUserId(user.getId(), tmpUserId);
@@ -74,27 +69,25 @@ public class AuthController {
 	}
 	
 	@RequestMapping("/resetPassword")
-	public String resetPassword(@RequestParam UserForm f) {
-		String message = "パスワードが再設定されました。";
-		String newPassword = f.getNewPassword();
-		String newPasswordConfirm = f.getNewPasswordConfirm();
-		
-		MstUser user = userMapper.findByUserNameAndPassword(f.getUserName(), f.getPassword());
-		if (user == null) {
-			return "現在のパスワードが正しくありません。";
+	@ResponseBody
+	public String resetpassword(@RequestBody UserForm userForm) {
+		String userName = userForm.getUserName();
+		String password = userForm.getPassword();
+		String newPassword = userForm.getNewPassword();
+		String result = "";
+		MstUser duplicate = userMapper.findByUserNameAndPassword(userName, loginSession.getPassword());
+		System.out.println(userForm.getNewPasswordConfirm());
+		if(!(duplicate.getPassword().equals(password))) {
+			result = "現在のパスワードが正しくありません。";
+		} else if(duplicate.getPassword().equals(newPassword)) {
+			result = "現在パスワードと同一文字列が入力されました。";
+		} else if(!(newPassword.equals(userForm.getNewPasswordConfirm()))) {
+			result = "新しいパスワードと確認用パスワードが一致しません。";
+		} else {
+			userMapper.updatePassword(userName, newPassword);
+			loginSession.setPassword(newPassword);
+			result = "パスワードが再設定されました。";
 		}
-		
-		if (user.getPassword().equals(newPassword)) {
-			return "現在のパスワードと同一文字列が入力されました。";
-		}
-		
-		if (!newPassword.equals(newPasswordConfirm)) {
-			return "新パスワードと確認用パスワードが一致しません。";
-		}
-		// mst_userとloginSessionのパスワードを更新する
-		userMapper.updatePassword(user.getUserName(), f.getNewPassword());
-		loginSession.setPassword(f.getNewPassword());
-		
-		return message;
+		return result;
 	}
 }
