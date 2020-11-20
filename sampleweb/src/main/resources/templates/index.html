@@ -11,9 +11,9 @@
 <body>
 
 <header th:insert="fragments/page_header::pageHeader"></header>
-<main>
+<main class="color">
 	<div class="container">
-		<form action="/sampleweb/searchItem">
+		<form action="/sampleweb/searchItem" id="search">
 				カテゴリ
 				<select name="categoryId" id="category">
 					<option value="0"></option>
@@ -31,24 +31,25 @@
 		<div class="noData"	th:if="${products == null || products.size() == 0}">
 			<p class="info">検索結果はありません。</p>
 		</div>
-		<table class="top" th:if="${products != null && products.size() != 0}">
-			<tr>
+		<h3 th:if="${products != null && products.size() != 0}">ケーキ一覧</h3>
+		<table class="top top_product" th:if="${products != null && products.size() != 0}">
+			<!-- <tr>
 				<th>画像</th><th>商品名</th><th>価格(円)</th><th>個数</th><th>カート</th>
-			</tr>
-			<tr th:each="item: ${products}">
-				<td>
-					<img th:src="${item.imageFullPath}" class="itemImage"/>
-				</td>
-				<td>
-					<a href="/sampleweb/product/" 
+			</tr> -->
+			<tr class="lists">
+				<td th:each="item: ${products}" class="list">
+				<a href="/sampleweb/product/" 
 					th:href="@{/sampleweb/product/{id}(id=${item.id})}">
-						<label th:text="${item.productName}" ></label>
+					<img th:src="${item.imageFullPath}" class="itempicture"/>
+						<label th:text="${item.productName}"  class="productname"></label>
+					<span th:text="'¥' + ${item.price} + 円" class="number money"></span>
 					</a>
+					<span class="cartadd">
+					<input type="number" id="productCount" class="count number" value="0"/>
+					<input type="hidden" id="productId" th:value="${item.id}"/>
+					<button class="cartButton">カートに入れる</button>
+					</span>
 				</td>
-				<td th:text="${item.price}" class="number"></td>
-				<td><input type="number" id="productCount" class="count number" value="0"/>
-				<input type="hidden" id="productId" th:value="${item.id}"/></td>
-				<td><button class="cartButton">追加</button></td>
 			</tr>
 		</table>
 	</div>
@@ -58,7 +59,7 @@ $(() => {
 	$('.cartButton').on('click', addCart);
 });
 	let addCart = (event) => {
-		let tr = $(event.target).parent().parent();
+		let tr = $(event.target).parent()
 		let productCount = $(tr).find('#productCount').val();
 		let productId = $(tr).find('#productId').val();
 		if (productCount == 0) {

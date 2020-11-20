@@ -28,7 +28,13 @@ public interface TblCartMapper {
 		int insert(TblCart cart);
 		
 		@Update("UPDATE tbl_cart SET product_count = product_count + #{productCount}, updated_at = now() WHERE user_id = #{userId} AND product_id = #{productId}")
-		int update(TblCart cart);
+		int update(TblCart count);
+		
+//		@Update("UPDATE tbl_cart SET product_count = product_count + #{productCount}, updated_at = now() WHERE user_id = #{userId} AND product_id = #{productId}")
+		int update1(List<TblCart> count);
+		
+		@Select("SELECT * FROM tbl_cart WHERE user_id = #{userId}")
+		List<TblCart> findByUserIdCart(@Param("userId") int userId);
 		
 		@Select("SELECT count(user_id) FROM tbl_cart WHERE user_id = #{userId}")
 		int findCountByUserId(@Param("userId") int userId);

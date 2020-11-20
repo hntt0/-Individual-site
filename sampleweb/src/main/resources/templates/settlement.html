@@ -36,7 +36,7 @@
 		</table>
 		<div class="buttonArea">
 			<button th:if="${destinations != null && destinations.size() > 0}" id="deleteButton">削除</button>
-			<form action="/sampleweb/destination/">
+			<form action="/sampleweb/destination/" class="pay">
 				<button id="register">新規宛先</button>
 			</form>
 			<button th:if="${destinations != null && destinations.size() > 0}" id="settlementButton">決済</button>

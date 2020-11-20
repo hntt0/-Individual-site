@@ -18,13 +18,13 @@ public interface MstProductMapper {
 	List<MstProduct> findByCategoryId(@Param("categoryId") int categoryId);
 
 //	@Select("SELECT * FROM mst_product WHERE product_name LIKE '%${productName}%'")
-	List<MstProduct> findByProductName(@Param("productName") List<String> productName);
+	List<MstProduct> findByProductName(@Param("productNames") String[] productName);
 	
 	@Select("SELECT * FROM mst_product where id = #{id}")
 	MstProduct findById(@Param("id") int id);
 	
 	@Select("SELECT * FROM mst_product where category_id = #{categoryId} AND product_name LIKE '%${productNames}%'")
-	List<MstProduct> findByCategoryIdProductName(@Param("categoryId") int categoryId, @Param("productNames") List<String> productNames);
+	List<MstProduct> findByCategoryIdProductName(@Param("categoryId") int categoryId, @Param("productNames") String[] productNames);
 	
 
 }

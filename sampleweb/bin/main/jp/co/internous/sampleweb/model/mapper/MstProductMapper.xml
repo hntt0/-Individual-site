@@ -6,10 +6,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 <select id="findByProductName" parameterType="java.util.List" resultType="jp.co.internous.sampleweb.model.domain.MstProduct">
 		SELECT
 			* FROM mst_product 
-			WHERE product_name in
+			WHERE product_name LIKE
 			<foreach item="item" collection="productNames"
-					 open="(" separator="," close=")">
-			${item}
+					 separator="OR product_name LIKE">
+			'%${item}%'
 			</foreach>
 </select>
 

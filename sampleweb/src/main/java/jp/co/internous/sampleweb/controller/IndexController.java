@@ -1,6 +1,5 @@
 package jp.co.internous.sampleweb.controller;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +12,7 @@ import jp.co.internous.sampleweb.model.domain.MstProduct;
 import jp.co.internous.sampleweb.model.form.SearchForm;
 import jp.co.internous.sampleweb.model.mapper.MstCategoryMapper;
 import jp.co.internous.sampleweb.model.mapper.MstProductMapper;
+import jp.co.internous.sampleweb.model.session.LoginSession;
 
 @Controller
 @RequestMapping("/sampleweb")
@@ -23,11 +23,17 @@ public class IndexController {
 	
 	@Autowired
 	private MstCategoryMapper categoryMapper;
+	
+	@Autowired
+	private LoginSession loginSession;
 
 	@RequestMapping("/")
 	public String index(Model model) {
 		List<MstProduct> product = productMapper.productAll();
 		List<MstCategory> category = categoryMapper.categoryAll();
+		if(!loginSession.getLogined() && loginSession.getTmpUserId() == 0) {
+			loginSession.setTmpUserId((int)(Math.random() * -1000000000));
+		}
 			model.addAttribute("products", product);
 			model.addAttribute("category", category);
 		return "index";
@@ -38,22 +44,19 @@ public class IndexController {
 		List<MstCategory> category = categoryMapper.categoryAll();
 		List<MstProduct> product = null;
 		int categoryId = form.getCategoryId();
-		String[] productName = null;
-		if(categoryId != 0 && productName == null) {
-			System.out.println(categoryId);
+		String[] productNames = null;
+		//categoryIdのみの場合
+		if(categoryId != 0 && productNames == null) {
 			product = productMapper.findByCategoryId(categoryId);
 		}
+		//productNameを受け取った場合
 		if(form.getProductName() != "") {
-			productName = form.getProductName().replaceAll("　", " ").replaceAll("\\s+", " ").split(" ");
-			List<String> productNames = Arrays.asList(productName);
-//			for(String productName : productNames) {
-			System.out.println(productNames.get(0));
+			productNames = form.getProductName().replaceAll("　", " ").replaceAll("\\s+", " ").trim().split(" ");
 				if(categoryId == 0) {
 					product = productMapper.findByProductName(productNames);
 				} else if (categoryId != 0) {
 					product = productMapper.findByCategoryIdProductName(categoryId, productNames);
 				}
-//			}
 		}
 		model.addAttribute("products", product);
 		model.addAttribute("category", category);

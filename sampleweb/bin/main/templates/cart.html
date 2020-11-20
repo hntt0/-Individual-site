@@ -12,7 +12,6 @@
 <header th:insert="fragments/page_header::pageHeader"></header>
 
 <main>
-
 	<div class="container cart">
 		<div class="noData" th:if="${carts == null || carts.size() == 0}">
 			<p class="info">カート情報はありません。</p>
@@ -25,7 +24,7 @@
 				<td>
 				 <input type="checkbox" name="id" class="checkList" th:value="${item.id}"/>
 				</td>
-				<td class="image">
+				<td class="image cartItem">
 					<img class="itemImage" th:src="${item.imageFullPath}" />
 				</td>
 				<td th:text="${item.productName}"></td>
@@ -44,7 +43,7 @@
 		</table>
 		<div class="buttonArea" th:if="${carts != null && carts.size() > 0}">
 			<button id="deleteButton" disabled>削除</button>
-			<form action="/sampleweb/settlement/">
+			<form action="/sampleweb/settlement/" class="pay">
 				<button type="submit" id="settlementButton">購入</button>
 			</form>
 		</div>

@@ -1,5 +1,7 @@
 package jp.co.internous.sampleweb.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.google.gson.Gson;
 
 import jp.co.internous.sampleweb.model.domain.MstUser;
+import jp.co.internous.sampleweb.model.domain.TblCart;
+import jp.co.internous.sampleweb.model.domain.dto.CartDto;
 import jp.co.internous.sampleweb.model.form.UserForm;
 import jp.co.internous.sampleweb.model.mapper.MstUserMapper;
 import jp.co.internous.sampleweb.model.mapper.TblCartMapper;
@@ -32,13 +36,15 @@ public class AuthController {
 	@RequestMapping("/login")
 	public String login(@RequestBody UserForm f) {
 		MstUser user = userMapper.findByUserNameAndPassword(f.getUserName(), f.getPassword());
-		
 		int tmpUserId = loginSession.getTmpUserId();
 		// 仮IDでカート追加されていれば、本ユーザーIDに更新する。
-		if (user != null && tmpUserId == 0) {
-			int count = cartMapper.findCountByUserId(tmpUserId);
-			if (count > 0) {
+		if (user != null && tmpUserId != 0) {
+			List<TblCart> count = cartMapper.findByUserIdCart(tmpUserId);
+			List<TblCart> count2 = cartMapper.findByUserIdCart(user.getId());
+			if (count != null) {
 				cartMapper.updateUserId(user.getId(), tmpUserId);
+				cartMapper.update1(count);
+//				cartMapper.update(user);
 			}
 		}
 		

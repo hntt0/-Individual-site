@@ -7,13 +7,12 @@ body {
 header {
 	width: 100%;
 	min-width: 650px;
-	height: 80px;
+	height: 90px;
 }
 
 div.headerTop {
 	width: 100%;
-	background: #bb0000;
-	color: #ffffff;
+	border-bottom: 1px dotted gray;
 }
 
 h1 {
@@ -26,11 +25,11 @@ h1 {
 }
 
 h1.logo {
-	font-family: 'Monotype Corsiva';
+	font-family: 'Lora', serif;;
 }
 h1.logo a {
 	text-decoration: none;
-	color: #fff;
+	color: #000000;
 	font-weight: bold;
 }
 
@@ -43,6 +42,10 @@ h2 {
 
 form {
 	margin-top: 5px;
+}
+
+#search {
+	margin-bottom: 30px;
 }
 
 select, form input {
@@ -58,27 +61,31 @@ nav {
 	margin-top: 2px;
 	list-style: none;
 	overflow: hidden;
-	background:#ffffff;
 	float: right;
-	margin-right: 10px;
+	margin: 8px 10px 10px 0;
 }
 
 .menu li {
 	width: 100px;
 	text-align: center;
-	background: #008000;	
-	border:1px solid #00ff00;
 	float: left;
 	height: 25px;
 	line-height: 25px;
 	margin-right: 10px;
 	padding: 3px;
-	border-radius: 10px;
+	border-radius: 6px;
+	background-color: #ff6e6e;
+}
+
+#cartMenu:hover {
+	background-color: orange;
+	transition: 0.7s;
 }
 
 .menu li a {
 	text-decoration: none;
-	color: #fff;
+	color: #ffffff;
+	font-size: 14px;
 /*	 font-weight: bold; */
 }
 
@@ -101,19 +108,20 @@ span.signup {
 span.signup a {
 	text-decoration: none;
 	text-decoration-line: underline;
-	color: #ffffff;
+	color: #000000;
+	text-decoration: none;
 	font-size: 0.8em;
 }
 span.signup a:hover {
 	text-decoration: none;
 	text-decoration-line: underline;
-	color: #ffff00;
+	color: red;
 	font-size: 0.8em;
 }
 
 div.loginArea {
 	float: right;
-	padding-top: 6px;
+	padding-top: 9px;
 	margin-right: 10px;
 }
 
@@ -124,8 +132,6 @@ input[name="userName"], input[name="password"] {
 main {
 	display: block;
 	width: 100%;
-	border-top: 1px solid #008000;
-	background: linear-gradient(#008000, #ffffff) fixed;
 	padding-bottom: 20px;
 }
 
@@ -133,7 +139,7 @@ div.container {
 	border-radius: 20px;
 	width: 70%;
 /* 	height: 450px; */
-	min-width: 600px;
+	width: 960px;
 	background: #ffffff;
 	margin: 20px auto;
 	padding: 5px;
@@ -141,12 +147,13 @@ div.container {
 }
 
 img.itemImage {
-	width: 70px;
-	height: 70px;
+	width: 100px;
+	height: 100px;
+	object-fit: cover;
 }
 
 table {
-	width: 680px;
+	width: 960px;
 	min-width: 680px;
 	margin: 10px auto;
 }
@@ -164,13 +171,18 @@ th {
 	padding: 5px;
 	height: 20px;
 	vertical-align: middle;
-	background: #c0c0c0;
+	background: #ffa500;
 	border: 1px solid #777777;
 	font-weight: normal;
 }
 
 .top th {
 	border-bottom: 5px groove #777777;
+}
+
+.top_product {
+	display: flex;
+	justify-content: space-between;
 }
 
 .user th, .myPage th {
@@ -181,8 +193,27 @@ th {
 td {
 	vertical-align: middle;
 	padding: 3px;
-	border: 1px solid #c0c0c0;
 }
+
+td.list{
+	display: inline-block;
+	margin-bottom: 20px;
+}
+
+.money {
+	display: block;
+	text-align: left;
+	color: #ff1493;
+	font-weight: bold;
+	font-size: 13px;
+	margin-bottom: 4px;
+}
+
+td a {
+	display: block;
+	text-decoration: none;
+}
+
 .user td, .myPage td {
 	text-align: left;
 	padding-left: 10px;
@@ -197,10 +228,6 @@ td.image {
 
 .componentTd {
 	text-align: center;
-}
-
-.number {
-	text-align: right;
 }
 
 .count {
@@ -268,17 +295,26 @@ caption {
 }
 
 img.itemImageDetail {
+	width: 80px;
+	height: 80px;
+}
+
+img.itempicture {
 	width: 220px;
-	height: 220px;
+	height: 190px;
+	object-fit: cover;
 }
 
 div.buttonArea {
 	width: 680px;
-	margin: 10px auto;
+	margin: 10px 0 10px;
+	margin-left: auto;
 }
+
 div.cart div.buttonArea {
 	margin-top: 20px;
 }
+
 div.history div.buttonArea {
 	width: 780px;
 	margin-top: 20px;
@@ -294,4 +330,49 @@ div.history div.buttonArea {
 }
 .noData p, completed p {
 	padding: 20px;
+}
+
+tr.lists {
+	width: 960px;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+
+h3 {
+	text-align: left;
+	margin-bottom: 15px;
+}
+
+.cartButton {
+	background-color: #ffa500;
+	border-radius: 20px;
+	border: none;
+	cursor: pointer;
+	color: #ffffff;
+}
+
+.productname {
+	display: block;
+	text-align: left;
+	cursor: pointer;
+	color: #000000;
+	margin: 5px 0;
+}
+
+.cartadd {
+	display: block;
+	text-align: left;
+}
+
+.cartItem {
+	padding-bottom: 10px;
+}
+
+.itemMenu{
+	background-color: #ffffff;
+}
+
+.pay {
+	display: inline-block;
 }
