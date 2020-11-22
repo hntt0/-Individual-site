@@ -24,17 +24,4 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 		ORDER BY updated_at DESC, created_at DESC;
 </select>
 
-<update id="update1">
-		UPDATE 
-			tbl_cart
-		SET
-		<foreach item="item" collection="cart" separator="">
-			product_count = product_count + #{productCount},
-			updated_at = now()
-		WEHRE 
-			user_id = #{userId} 
-		AND 
-			product_id = #{productId};
-		</foreach>
-</update>
 </mapper>

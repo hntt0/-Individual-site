@@ -12,7 +12,6 @@ import com.google.gson.Gson;
 
 import jp.co.internous.sampleweb.model.domain.MstUser;
 import jp.co.internous.sampleweb.model.domain.TblCart;
-import jp.co.internous.sampleweb.model.domain.dto.CartDto;
 import jp.co.internous.sampleweb.model.form.UserForm;
 import jp.co.internous.sampleweb.model.mapper.MstUserMapper;
 import jp.co.internous.sampleweb.model.mapper.TblCartMapper;
@@ -39,12 +38,17 @@ public class AuthController {
 		int tmpUserId = loginSession.getTmpUserId();
 		// 仮IDでカート追加されていれば、本ユーザーIDに更新する。
 		if (user != null && tmpUserId != 0) {
-			List<TblCart> count = cartMapper.findByUserIdCart(tmpUserId);
-			List<TblCart> count2 = cartMapper.findByUserIdCart(user.getId());
-			if (count != null) {
+			int count = cartMapper.findCountByUserId(tmpUserId);
+			if (count > 0) {
 				cartMapper.updateUserId(user.getId(), tmpUserId);
-				cartMapper.update1(count);
-//				cartMapper.update(user);
+				List<TblCart> tempItem = cartMapper.findByUserIdMax(user.getId());
+				for(TblCart Item : tempItem) {
+					int itemCount = cartMapper.findCountByUserIdAndProuductId(user.getId(), Item.getProductId());
+					if(itemCount > 1) {
+						cartMapper.update(Item);
+						cartMapper.deleteById(Item.getId());
+					}
+				}
 			}
 		}
 		
@@ -82,7 +86,6 @@ public class AuthController {
 		String newPassword = userForm.getNewPassword();
 		String result = "";
 		MstUser duplicate = userMapper.findByUserNameAndPassword(userName, loginSession.getPassword());
-		System.out.println(userForm.getNewPasswordConfirm());
 		if(!(duplicate.getPassword().equals(password))) {
 			result = "現在のパスワードが正しくありません。";
 		} else if(duplicate.getPassword().equals(newPassword)) {
