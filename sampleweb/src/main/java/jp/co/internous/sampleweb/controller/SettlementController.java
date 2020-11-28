@@ -47,9 +47,11 @@ public class SettlementController {
 		return "settlement";
 	}
 	
+	@SuppressWarnings("unchecked")
 	@RequestMapping("/complete")
 	@ResponseBody
 	public boolean complete(@RequestBody String destinationId) {
+		
 		Map<String, String> map = gson.fromJson(destinationId, Map.class);
 		String id = map.get("destinationId");
 		

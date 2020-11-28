@@ -1,0 +1,2 @@
+jp/co/internous/sampleweb/SamplewebApplicationTests.java
+ jp.co.internous.sampleweb.SamplewebApplicationTests

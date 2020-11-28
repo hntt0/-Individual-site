@@ -50,6 +50,7 @@ public class DestinationController {
 		return result;
 	}
 	
+	@SuppressWarnings("unchecked")
 	@RequestMapping("/delete")
 	@ResponseBody
 	public boolean delete(@RequestBody String destinationId) {
