@@ -1,1 +1,1 @@
-web: java -jar target/java-getting-started-1.0.jar
+web: web: java $JAVA_OPTS -jar target/*.jar --server.port=$PORT
