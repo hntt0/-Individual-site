@@ -3,3 +3,4 @@
 
 <img width="1792" alt="スクリーンショット 2020-12-03 12 10 05" src="https://user-images.githubusercontent.com/70958720/100959692-2cd29f00-3562-11eb-99ed-965540d516a2.png">
 
+<img width="1792" alt="スクリーンショット 2020-12-03 12 10 15" src="https://user-images.githubusercontent.com/70958720/100959757-512e7b80-3562-11eb-8974-72b4a3a14609.png">
