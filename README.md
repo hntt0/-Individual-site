@@ -5,4 +5,6 @@
 
 <img width="1792" alt="スクリーンショット 2020-12-03 12 10 15" src="https://user-images.githubusercontent.com/70958720/100959757-512e7b80-3562-11eb-8974-72b4a3a14609.png">
 
+<img width="1792" alt="スクリーンショット 2020-12-03 12 10 28" src="https://user-images.githubusercontent.com/70958720/100959969-ba15f380-3562-11eb-9bfa-cf931bade5b3.png">
+
 <img width="1792" alt="スクリーンショット 2020-12-03 12 10 41" src="https://user-images.githubusercontent.com/70958720/100959900-99e63480-3562-11eb-8745-4470f1861bac.png">
